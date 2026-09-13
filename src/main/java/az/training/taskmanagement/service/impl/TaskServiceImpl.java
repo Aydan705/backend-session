@@ -12,6 +12,8 @@ import az.training.taskmanagement.model.User;
 import az.training.taskmanagement.repository.TaskRepository;
 import az.training.taskmanagement.repository.UserRepository;
 import az.training.taskmanagement.service.TaskService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,6 +22,8 @@ import java.util.List;
 @Service
 @Transactional
 public class TaskServiceImpl implements TaskService {
+
+    private static final Logger log = LoggerFactory.getLogger(TaskServiceImpl.class);
 
     private final TaskRepository taskRepository;
     private final UserRepository userRepository;
@@ -37,6 +41,7 @@ public class TaskServiceImpl implements TaskService {
         User user = userRepository.findById(request.userId())
                 .orElseThrow(() -> ResourceNotFoundException.of("User", request.userId()));
         Task saved = taskRepository.save(TaskMapper.toEntity(request, user));
+        log.info("Task yaradıldı: id={}, userId={}", saved.getId(), user.getId());
         return TaskMapper.toResponse(saved);
     }
 
@@ -97,6 +102,7 @@ public class TaskServiceImpl implements TaskService {
     public void deleteTask(Long id) {
         findTaskOrThrow(id);
         taskRepository.deleteById(id);
+        log.info("Task silindi: id={}", id);
     }
 
     private Task findTaskOrThrow(Long id) {

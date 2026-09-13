@@ -9,6 +9,8 @@ import az.training.taskmanagement.mapper.UserMapper;
 import az.training.taskmanagement.model.User;
 import az.training.taskmanagement.repository.UserRepository;
 import az.training.taskmanagement.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,6 +19,8 @@ import java.util.List;
 @Service
 @Transactional
 public class UserServiceImpl implements UserService {
+
+    private static final Logger log = LoggerFactory.getLogger(UserServiceImpl.class);
 
     private final UserRepository userRepository;
 
@@ -36,6 +40,7 @@ public class UserServiceImpl implements UserService {
             throw new DuplicateResourceException("Bu email artıq mövcuddur: " + request.email());
         }
         User saved = userRepository.save(UserMapper.toEntity(request));
+        log.info("User yaradıldı: id={}, email={}", saved.getId(), saved.getEmail());
         return UserMapper.toResponse(saved);
     }
 
@@ -57,6 +62,7 @@ public class UserServiceImpl implements UserService {
     public void deleteUser(Long id) {
         findUserOrThrow(id);
         userRepository.deleteById(id);
+        log.info("User silindi: id={}", id);
     }
 
     private User findUserOrThrow(Long id) {

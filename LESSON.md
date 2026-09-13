@@ -1,9 +1,9 @@
-# Dərs 9 — Validation
+# Dərs 10 — Exception Handling & Logging
 ## Məqsəd
-Yanlış input-un serverdə düzgün yoxlanmasını təmin etmək.
+Xətaları vahid formatda idarə etmək və sistemi müşahidə edilə bilən etmək.
 ## Mövzular
-- Server-side validation; niyə client-ə etibar etmirik.
-- Bean Validation: `@NotNull`, `@NotBlank`, `@Size`, `@Email`.
-- Controller-də `@Valid`.
+- Custom exception-lar; `@RestControllerAdvice` + `@ExceptionHandler`.
+- Standart `ApiError` (timestamp, status, message, path, fieldErrors).
+- Logging səviyyələri (INFO/WARN/ERROR/DEBUG).
 ## Learning Outcome
-İştirakçı request DTO-larını validation ilə qoruya bilir.
+İştirakçı standart error handling və logging tətbiq edə bilir.
