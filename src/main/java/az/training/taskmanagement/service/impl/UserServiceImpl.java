@@ -9,15 +9,17 @@ import az.training.taskmanagement.mapper.UserMapper;
 import az.training.taskmanagement.model.User;
 import az.training.taskmanagement.repository.UserRepository;
 import az.training.taskmanagement.service.UserService;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-@org.springframework.stereotype.Service
+@Service
+@Transactional
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
 
-    // Constructor injection - dependency yalnız interface-dir.
     public UserServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
@@ -38,11 +40,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public UserResponse getUserById(Long id) {
         return UserMapper.toResponse(findUserOrThrow(id));
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<UserResponse> getAllUsers() {
         return userRepository.findAll().stream()
                 .map(UserMapper::toResponse)

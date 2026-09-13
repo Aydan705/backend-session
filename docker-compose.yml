@@ -1,4 +1,4 @@
-# Lokal PostgreSQL:  docker compose up -d postgres
+# Lokal PostgreSQL qaldırmaq üçün:  docker compose up -d
 services:
   postgres:
     image: postgres:16
