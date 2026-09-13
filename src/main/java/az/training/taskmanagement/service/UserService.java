@@ -1,49 +1,56 @@
 package az.training.taskmanagement.service;
 
+import az.training.taskmanagement.dto.CreateUserRequest;
+import az.training.taskmanagement.dto.UserResponse;
+import az.training.taskmanagement.exception.DuplicateResourceException;
+import az.training.taskmanagement.exception.ResourceNotFoundException;
+import az.training.taskmanagement.exception.ValidationException;
+import az.training.taskmanagement.mapper.UserMapper;
 import az.training.taskmanagement.model.User;
 import az.training.taskmanagement.repository.UserRepository;
 
 import java.util.List;
 
-/**
- * User üçün business logic.
- *
- * Lesson 1: service repository-ni istifadə edir və sadə qaydaları (validation)
- * tətbiq edir. Hələ framework yoxdur - dependency əl ilə constructor-a verilir.
- */
 public class UserService {
 
     private final UserRepository userRepository;
 
+    // Constructor injection - dependency yalnız interface-dir.
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
-    public User createUser(String name, String email) {
-        if (name == null || name.isBlank()) {
-            throw new IllegalArgumentException("name boş ola bilməz");
+    public UserResponse createUser(CreateUserRequest request) {
+        if (request.name() == null || request.name().isBlank()) {
+            throw new ValidationException("name boş ola bilməz");
         }
-        if (email == null || email.isBlank()) {
-            throw new IllegalArgumentException("email boş ola bilməz");
+        if (request.email() == null || request.email().isBlank()) {
+            throw new ValidationException("email boş ola bilməz");
         }
-        if (userRepository.existsByEmail(email)) {
-            throw new IllegalArgumentException("Bu email artıq mövcuddur: " + email);
+        if (userRepository.existsByEmail(request.email())) {
+            throw new DuplicateResourceException("Bu email artıq mövcuddur: " + request.email());
         }
-        User user = new User(null, name, email);
-        return userRepository.save(user);
+        User saved = userRepository.save(UserMapper.toEntity(request));
+        return UserMapper.toResponse(saved);
     }
 
-    public User getUserById(Long id) {
-        return userRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("User tapılmadı: id=" + id));
+    public UserResponse getUserById(Long id) {
+        return UserMapper.toResponse(findUserOrThrow(id));
     }
 
-    public List<User> getAllUsers() {
-        return userRepository.findAll();
+    public List<UserResponse> getAllUsers() {
+        return userRepository.findAll().stream()
+                .map(UserMapper::toResponse)
+                .toList();
     }
 
     public void deleteUser(Long id) {
-        getUserById(id); // mövcudluğu yoxla
+        findUserOrThrow(id);
         userRepository.deleteById(id);
+    }
+
+    private User findUserOrThrow(Long id) {
+        return userRepository.findById(id)
+                .orElseThrow(() -> ResourceNotFoundException.of("User", id));
     }
 }

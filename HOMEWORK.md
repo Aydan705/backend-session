@@ -1,5 +1,5 @@
-# Ev tapşırığı 1
-1. `Category` model, repository və service (in-memory) əlavə et.
-2. `Task`-a `categoryId` sahəsi və yoxlaması əlavə et.
-3. `getTasksByStatus(TaskStatus)` metodu yaz.
+# Ev tapşırığı 2
+1. `Category` üçün tam qat dəsti (controller/service/repository/dto/mapper) yaz.
+2. `UpdateUserRequest` DTO və `updateUser(...)` əlavə et.
+3. Bütün servislərdə eyni "findOrThrow" pattern-indən istifadə et.
 

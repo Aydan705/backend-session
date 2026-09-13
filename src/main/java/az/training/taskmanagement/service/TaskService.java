@@ -1,20 +1,18 @@
 package az.training.taskmanagement.service;
 
-import az.training.taskmanagement.model.Priority;
+import az.training.taskmanagement.dto.CreateTaskRequest;
+import az.training.taskmanagement.dto.TaskResponse;
+import az.training.taskmanagement.dto.UpdateTaskRequest;
+import az.training.taskmanagement.exception.ResourceNotFoundException;
+import az.training.taskmanagement.exception.ValidationException;
+import az.training.taskmanagement.mapper.TaskMapper;
 import az.training.taskmanagement.model.Task;
-import az.training.taskmanagement.model.TaskStatus;
 import az.training.taskmanagement.repository.TaskRepository;
 import az.training.taskmanagement.repository.UserRepository;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
-/**
- * Task üçün business logic.
- *
- * Task yaradılarkən əvvəlcə user-in mövcudluğu yoxlanılır -
- * bu, iki service/repository arasında əlaqənin nümunəsidir.
- */
 public class TaskService {
 
     private final TaskRepository taskRepository;
@@ -25,40 +23,62 @@ public class TaskService {
         this.userRepository = userRepository;
     }
 
-    public Task createTask(String title, String description, Priority priority, Long userId) {
-        if (title == null || title.isBlank()) {
-            throw new IllegalArgumentException("title boş ola bilməz");
+    public TaskResponse createTask(CreateTaskRequest request) {
+        if (request.title() == null || request.title().isBlank()) {
+            throw new ValidationException("title boş ola bilməz");
         }
+        // Task yaratmazdan əvvəl user-in mövcudluğunu yoxla.
+        if (userRepository.findById(request.userId()).isEmpty()) {
+            throw ResourceNotFoundException.of("User", request.userId());
+        }
+        Task saved = taskRepository.save(TaskMapper.toEntity(request));
+        return TaskMapper.toResponse(saved);
+    }
+
+    public TaskResponse getTaskById(Long id) {
+        return TaskMapper.toResponse(findTaskOrThrow(id));
+    }
+
+    public List<TaskResponse> getAllTasks() {
+        return taskRepository.findAll().stream()
+                .map(TaskMapper::toResponse)
+                .toList();
+    }
+
+    public List<TaskResponse> getTasksByUser(Long userId) {
         if (userRepository.findById(userId).isEmpty()) {
-            throw new IllegalArgumentException("User tapılmadı: id=" + userId);
+            throw ResourceNotFoundException.of("User", userId);
         }
-        Task task = new Task(null, title, description,
-                TaskStatus.TODO, priority == null ? Priority.MEDIUM : priority, userId);
-        return taskRepository.save(task);
+        return taskRepository.findByUserId(userId).stream()
+                .map(TaskMapper::toResponse)
+                .toList();
     }
 
-    public Task getTaskById(Long id) {
-        return taskRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Task tapılmadı: id=" + id));
-    }
-
-    public List<Task> getAllTasks() {
-        return taskRepository.findAll();
-    }
-
-    public List<Task> getTasksByUser(Long userId) {
-        return taskRepository.findByUserId(userId);
-    }
-
-    public Task updateStatus(Long id, TaskStatus status) {
-        Task task = getTaskById(id);
-        task.setStatus(status);
+    public TaskResponse updateTask(Long id, UpdateTaskRequest request) {
+        Task task = findTaskOrThrow(id);
+        if (request.title() != null) {
+            task.setTitle(request.title());
+        }
+        if (request.description() != null) {
+            task.setDescription(request.description());
+        }
+        if (request.status() != null) {
+            task.setStatus(request.status());
+        }
+        if (request.priority() != null) {
+            task.setPriority(request.priority());
+        }
         task.setUpdatedAt(LocalDateTime.now());
-        return taskRepository.save(task);
+        return TaskMapper.toResponse(taskRepository.save(task));
     }
 
     public void deleteTask(Long id) {
-        getTaskById(id); // mövcudluğu yoxla
+        findTaskOrThrow(id);
         taskRepository.deleteById(id);
+    }
+
+    private Task findTaskOrThrow(Long id) {
+        return taskRepository.findById(id)
+                .orElseThrow(() -> ResourceNotFoundException.of("Task", id));
     }
 }

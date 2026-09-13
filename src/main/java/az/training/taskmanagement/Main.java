@@ -1,69 +1,62 @@
 package az.training.taskmanagement;
 
+import az.training.taskmanagement.controller.TaskController;
+import az.training.taskmanagement.controller.UserController;
+import az.training.taskmanagement.dto.CreateTaskRequest;
+import az.training.taskmanagement.dto.CreateUserRequest;
+import az.training.taskmanagement.dto.UpdateTaskRequest;
+import az.training.taskmanagement.dto.UserResponse;
+import az.training.taskmanagement.exception.DuplicateResourceException;
 import az.training.taskmanagement.model.Priority;
-import az.training.taskmanagement.model.Task;
 import az.training.taskmanagement.model.TaskStatus;
-import az.training.taskmanagement.model.User;
 import az.training.taskmanagement.repository.TaskRepository;
 import az.training.taskmanagement.repository.UserRepository;
 import az.training.taskmanagement.service.TaskService;
 import az.training.taskmanagement.service.UserService;
 
 /**
- * Lesson 1 demo.
+ * Lesson 2 demo — layered architecture.
  *
- * Bu class hələ REST API deyil - sadəcə backend model-in,
- * repository və service qatlarının necə işlədiyini console-da göstərir.
- *
- * İşə salmaq:  mvn -q compile exec:java
+ * Diqqət et: burada qatları ƏL İLƏ quraşdırırıq (manual dependency injection).
+ * Controller -> Service -> Repository zənciri interface-lər üzərindən bağlanır.
+ * Lesson 4-də Spring bu "wiring"-i avtomatik edəcək.
  */
 public class Main {
 
     public static void main(String[] args) {
-        // Qatları əl ilə "quraşdırırıq" (manual wiring).
-        // Lesson 4-də bunu Spring avtomatik edəcək (Dependency Injection).
+        // 1) Repository qatı (in-memory implementasiya)
         UserRepository userRepository = new UserRepository();
         TaskRepository taskRepository = new TaskRepository();
+
+        // 2) Service qatı (business logic) - yalnız interface-dən asılıdır
         UserService userService = new UserService(userRepository);
         TaskService taskService = new TaskService(taskRepository, userRepository);
 
-        System.out.println("=== Task Management API - Lesson 1 (in-memory) ===\n");
+        // 3) Controller qatı (boundary)
+        UserController userController = new UserController(userService, taskService);
+        TaskController taskController = new TaskController(taskService);
 
-        // CREATE user
-        User darya = userService.createUser("Darya", "darya@example.com");
-        User ali = userService.createUser("Ali", "ali@example.com");
-        System.out.println("Yaradılan user-lər:");
-        userService.getAllUsers().forEach(u -> System.out.println("  " + u));
+        System.out.println("=== Task Management API - Lesson 2 (layered) ===\n");
 
-        // CREATE tasks
-        Task t1 = taskService.createTask("Backend syllabus hazırla",
-                "8 dərslik plan", Priority.HIGH, darya.getId());
-        Task t2 = taskService.createTask("Repository nümunəsi yaz",
-                "In-memory CRUD", Priority.MEDIUM, darya.getId());
-        Task t3 = taskService.createTask("Java essentials təkrar et",
-                null, Priority.LOW, ali.getId());
-        System.out.println("\nYaradılan task-lar:");
-        taskService.getAllTasks().forEach(t -> System.out.println("  " + t));
+        UserResponse darya = userController.create(new CreateUserRequest("Darya", "darya@example.com"));
+        UserResponse ali = userController.create(new CreateUserRequest("Ali", "ali@example.com"));
+        System.out.println("User-lər: " + userController.getAll());
 
-        // UPDATE status
-        taskService.updateStatus(t1.getId(), TaskStatus.IN_PROGRESS);
-        System.out.println("\nStatus dəyişdi -> " + taskService.getTaskById(t1.getId()));
+        taskController.create(new CreateTaskRequest("Layered refactor", "controller/service/repo", Priority.HIGH, darya.id()));
+        var t2 = taskController.create(new CreateTaskRequest("DTO mapping öyrən", null, Priority.MEDIUM, darya.id()));
+        taskController.create(new CreateTaskRequest("SOLID təkrar", null, Priority.LOW, ali.id()));
+        System.out.println("\nDarya-nın task-ları: " + userController.getUserTasks(darya.id()));
 
-        // FIND by user
-        System.out.println("\nDarya-nın task-ları:");
-        taskService.getTasksByUser(darya.getId()).forEach(t -> System.out.println("  " + t));
+        // PATCH nümunəsi (yalnız status dəyişir)
+        taskController.update(t2.id(), new UpdateTaskRequest(null, null, TaskStatus.DONE, null));
+        System.out.println("\nYenilənmiş task: " + taskController.getById(t2.id()));
 
-        // DELETE
-        taskService.deleteTask(t3.getId());
-        System.out.println("\nt3 silindikdən sonra ümumi task sayı: "
-                + taskService.getAllTasks().size());
-
-        // Xəta ssenarisi (validation)
+        // Xəta ssenarisi
         System.out.println("\nXəta ssenarisi:");
         try {
-            userService.createUser("Dublikat", "darya@example.com");
-        } catch (IllegalArgumentException e) {
-            System.out.println("  Gözlənilən xəta: " + e.getMessage());
+            userController.create(new CreateUserRequest("Dublikat", "darya@example.com"));
+        } catch (DuplicateResourceException e) {
+            System.out.println("  " + e.getClass().getSimpleName() + ": " + e.getMessage());
         }
 
         System.out.println("\n=== Demo bitdi ===");

@@ -11,8 +11,8 @@
 
 | Branch | Dərs | Mövzu | Layihənin vəziyyəti |
 |--------|------|-------|---------------------|
-| `branch_lesson1` **←** | 1 | Java Essentials | Plain Java: in-memory model, repository və service |
-| `branch_lesson2` | 2 | Layered Architecture & Clean Code | Paketlər, DTO, mapper, custom exception (concrete qatlar) |
+| `branch_lesson1` | 1 | Java Essentials | Plain Java: in-memory model, repository və service |
+| `branch_lesson2` **←** | 2 | Layered Architecture & Clean Code | Paketlər, DTO, mapper, custom exception (concrete qatlar) |
 | `branch_lesson3` | 3 | SOLID & Dependency Injection | Interface-based design, constructor DI, dəyişdirilə bilən implementasiya |
 | `branch_lesson4` | 4 | HTTP, REST & API Design | OpenAPI kontrakt, Postman, status kodları |
 | `branch_lesson5` | 5 | Spring Boot Fundamentals | Spring Boot, IoC/DI, ilk REST endpoint-lər |
@@ -31,22 +31,19 @@
 ```bash
 git clone https://github.com/Naghiyev/backend-session.git
 cd backend-session
-git checkout branch_lesson1
+git checkout branch_lesson2
 ```
 
 ---
 
-## 📍 Bu branch: Lesson 1 — Java Essentials
+## 📍 Bu branch: Lesson 2 — Layered Architecture & Clean Code
 
-Hələ Spring, database və HTTP yoxdur. Məqsəd — backend-in **mental modelini** və
-əsas Java anlayışlarını qurmaq.
+Kod **qatlara** bölündü: `controller / service / repository / dto / mapper / exception / model`.
+Repository və service hələ **concrete** class-lardır (interface Lesson 3-də gələcək).
 
 ```
-src/main/java/az/training/taskmanagement/
-├── model/          User, Task, TaskStatus, Priority
-├── repository/     In-memory UserRepository, TaskRepository (HashMap)
-├── service/        UserService, TaskService — business logic
-└── Main.java       Console demo (CRUD)
+controller → service → repository → (model)
+   DTO          business logic        saxlama
 ```
 ### İşə salmaq
 ```bash

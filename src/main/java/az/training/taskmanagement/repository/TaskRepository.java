@@ -9,9 +9,6 @@ import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 
-/**
- * In-memory Task repository.
- */
 public class TaskRepository {
 
     private final Map<Long, Task> storage = new ConcurrentHashMap<>();

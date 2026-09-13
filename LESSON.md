@@ -1,9 +1,9 @@
-# Dərs 1 — Java Essentials
+# Dərs 2 — Layered Architecture & Clean Code
 ## Məqsəd
-Backend üçün lazım olan əsas Java anlayışlarını praktik kontekstdə qurmaq.
+Məsuliyyətlərin düzgün ayrılmasını (Separation of Concerns) və maintainable kod yazmağı öyrənmək.
 ## Mövzular
-- JDK / JRE / JVM; class, object, constructor; encapsulation.
-- Collections (Map/List), exception, enum.
-- User & Task model, in-memory repository & service (Create / Find / Delete).
+- Layered architecture: Controller → Service → Repository.
+- DTO vs domain model; request/response ayrılığı; mapper.
+- Custom exception-lar; aydın paket strukturu.
 ## Learning Outcome
-İştirakçı backend sisteminin ümumi işləmə prinsipini və Java-nın rolunu başa düşür.
+İştirakçı business logic-in infrastructure-dan necə ayrıldığını başa düşür.
