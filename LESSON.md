@@ -1,9 +1,9 @@
-# Dərs 5 — Spring Boot Fundamentals
+# Dərs 6 — Full REST API with Spring Boot
 ## Məqsəd
-Spring Boot ilə real REST server qurmaq və IoC/DI-ni tətbiq etmək.
+API kontraktını tam implementasiya etmək.
 ## Mövzular
-- Spring vs Spring Boot; starter-lər; `@SpringBootApplication`.
-- IoC & Dependency Injection; bean & application context.
-- `@RestController`, `@Service`, `@Repository`; `@RequestBody`, `@PathVariable`.
+- Bütün CRUD endpoint-ləri; status filter (`@RequestParam`).
+- `ResponseEntity` ilə status idarəsi (201 Created, 204 No Content).
+- PATCH ilə qismən yeniləmə.
 ## Learning Outcome
-İştirakçı Spring Boot ilə işləyən REST endpoint yarada bilir.
+İştirakçı tam REST API-ni Spring Boot ilə implementasiya edə bilir.

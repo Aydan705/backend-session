@@ -1,5 +1,5 @@
-# Ev tapşırığı 5
-1. `GET /users` (bütün user-lər) endpoint-ini əlavə et.
-2. `curl`/Postman ilə mövcud endpoint-ləri test et.
-3. `@RequestParam` ilə sadə axtarış əlavə et.
+# Ev tapşırığı 6
+1. `Category` üçün tam REST controller yaz.
+2. `PUT /tasks/{id}` (tam əvəzləmə) əlavə et və PATCH-dən fərqini izah et.
+3. `GET /tasks` üçün `priority` filtri əlavə et.
 

@@ -15,8 +15,8 @@
 | `branch_lesson2` | 2 | Layered Architecture & Clean Code | Paketlər, DTO, mapper, custom exception (concrete qatlar) |
 | `branch_lesson3` | 3 | SOLID & Dependency Injection | Interface-based design, constructor DI, dəyişdirilə bilən implementasiya |
 | `branch_lesson4` | 4 | HTTP, REST & API Design | OpenAPI kontrakt, Postman, status kodları |
-| `branch_lesson5` **←** | 5 | Spring Boot Fundamentals | Spring Boot, IoC/DI, ilk REST endpoint-lər |
-| `branch_lesson6` | 6 | Full REST API with Spring Boot | Bütün endpoint-lər, ResponseEntity (in-memory) |
+| `branch_lesson5` | 5 | Spring Boot Fundamentals | Spring Boot, IoC/DI, ilk REST endpoint-lər |
+| `branch_lesson6` **←** | 6 | Full REST API with Spring Boot | Bütün endpoint-lər, ResponseEntity (in-memory) |
 | `branch_lesson7` | 7 | Relational Databases & SQL | PostgreSQL, docker-compose, schema, SQL |
 | `branch_lesson8` | 8 | JPA & Hibernate Persistence | Entity, JpaRepository, əlaqələr, transaction |
 | `branch_lesson9` | 9 | Validation | Bean Validation, @Valid, server-side yoxlama |
@@ -31,20 +31,18 @@
 ```bash
 git clone https://github.com/Naghiyev/backend-session.git
 cd backend-session
-git checkout branch_lesson5
+git checkout branch_lesson6
 ```
 
 ---
 
-## 📍 Bu branch: Lesson 5 — Spring Boot Fundamentals
+## 📍 Bu branch: Lesson 6 — Full REST API with Spring Boot
 
-Layihə **Spring Boot**-a keçdi. Manual wiring Spring DI ilə əvəz olundu. Bu dərsdə əsas
-(fundamental) endpoint-lər qoşulur:
+Bütün endpoint-lər tamamlandı və status kodları dəqiqləşdirildi:
 
-- `POST /users`, `GET /users/{id}`
-- `POST /tasks`, `GET /tasks`, `GET /tasks/{id}`
-
-Qalan endpoint-lər (filter, PATCH, DELETE, user-in taskları) **Lesson 6**-da tamamlanır.
+- `GET /users`, `DELETE /users/{id}`, `GET /users/{id}/tasks`
+- `GET /tasks?status=`, `PATCH /tasks/{id}`, `DELETE /tasks/{id}`
+- `ResponseEntity` ilə 201 / 204
 ### İşə salmaq
 ```bash
 mvn spring-boot:run          # http://localhost:8080
