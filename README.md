@@ -12,8 +12,8 @@
 | Branch | Dərs | Mövzu | Layihənin vəziyyəti |
 |--------|------|-------|---------------------|
 | `branch_lesson1` | 1 | Java Essentials | Plain Java: in-memory model, repository və service |
-| `branch_lesson2` **←** | 2 | Layered Architecture & Clean Code | Paketlər, DTO, mapper, custom exception (concrete qatlar) |
-| `branch_lesson3` | 3 | SOLID & Dependency Injection | Interface-based design, constructor DI, dəyişdirilə bilən implementasiya |
+| `branch_lesson2` | 2 | Layered Architecture & Clean Code | Paketlər, DTO, mapper, custom exception (concrete qatlar) |
+| `branch_lesson3` **←** | 3 | SOLID & Dependency Injection | Interface-based design, constructor DI, dəyişdirilə bilən implementasiya |
 | `branch_lesson4` | 4 | HTTP, REST & API Design | OpenAPI kontrakt, Postman, status kodları |
 | `branch_lesson5` | 5 | Spring Boot Fundamentals | Spring Boot, IoC/DI, ilk REST endpoint-lər |
 | `branch_lesson6` | 6 | Full REST API with Spring Boot | Bütün endpoint-lər, ResponseEntity (in-memory) |
@@ -31,20 +31,18 @@
 ```bash
 git clone https://github.com/Naghiyev/backend-session.git
 cd backend-session
-git checkout branch_lesson2
+git checkout branch_lesson3
 ```
 
 ---
 
-## 📍 Bu branch: Lesson 2 — Layered Architecture & Clean Code
+## 📍 Bu branch: Lesson 3 — SOLID & Dependency Injection
 
-Kod **qatlara** bölündü: `controller / service / repository / dto / mapper / exception / model`.
-Repository və service hələ **concrete** class-lardır (interface Lesson 3-də gələcək).
+Repository və service **interface**-ə çevrildi (+ implementasiya). Service artıq konkret
+saxlamadan yox, **abstraction**-dan asılıdır. İmplementasiyanı dəyişmək service-i dəyişmir.
 
-```
-controller → service → repository → (model)
-   DTO          business logic        saxlama
-```
+- `repository/UserRepository` (interface) + `repository/inmemory/InMemoryUserRepository`
+- `service/UserService` (interface) + `service/impl/UserServiceImpl`
 ### İşə salmaq
 ```bash
 mvn -q compile exec:java

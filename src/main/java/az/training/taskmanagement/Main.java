@@ -11,8 +11,12 @@ import az.training.taskmanagement.model.Priority;
 import az.training.taskmanagement.model.TaskStatus;
 import az.training.taskmanagement.repository.TaskRepository;
 import az.training.taskmanagement.repository.UserRepository;
+import az.training.taskmanagement.repository.inmemory.InMemoryTaskRepository;
+import az.training.taskmanagement.repository.inmemory.InMemoryUserRepository;
 import az.training.taskmanagement.service.TaskService;
 import az.training.taskmanagement.service.UserService;
+import az.training.taskmanagement.service.impl.TaskServiceImpl;
+import az.training.taskmanagement.service.impl.UserServiceImpl;
 
 /**
  * Lesson 2 demo — layered architecture.
@@ -25,12 +29,12 @@ public class Main {
 
     public static void main(String[] args) {
         // 1) Repository qatı (in-memory implementasiya)
-        UserRepository userRepository = new UserRepository();
-        TaskRepository taskRepository = new TaskRepository();
+        UserRepository userRepository = new InMemoryUserRepository();
+        TaskRepository taskRepository = new InMemoryTaskRepository();
 
         // 2) Service qatı (business logic) - yalnız interface-dən asılıdır
-        UserService userService = new UserService(userRepository);
-        TaskService taskService = new TaskService(taskRepository, userRepository);
+        UserService userService = new UserServiceImpl(userRepository);
+        TaskService taskService = new TaskServiceImpl(taskRepository, userRepository);
 
         // 3) Controller qatı (boundary)
         UserController userController = new UserController(userService, taskService);

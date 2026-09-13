@@ -2,45 +2,18 @@ package az.training.taskmanagement.repository;
 
 import az.training.taskmanagement.model.Task;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.atomic.AtomicLong;
 
-public class TaskRepository {
+public interface TaskRepository {
 
-    private final Map<Long, Task> storage = new ConcurrentHashMap<>();
-    private final AtomicLong sequence = new AtomicLong(0);
+    Task save(Task task);
 
-    public Task save(Task task) {
-        if (task.getId() == null) {
-            task.setId(sequence.incrementAndGet());
-        }
-        storage.put(task.getId(), task);
-        return task;
-    }
+    Optional<Task> findById(Long id);
 
-    public Optional<Task> findById(Long id) {
-        return Optional.ofNullable(storage.get(id));
-    }
+    List<Task> findAll();
 
-    public List<Task> findAll() {
-        return new ArrayList<>(storage.values());
-    }
+    List<Task> findByUserId(Long userId);
 
-    public List<Task> findByUserId(Long userId) {
-        List<Task> result = new ArrayList<>();
-        for (Task task : storage.values()) {
-            if (task.getUserId() != null && task.getUserId().equals(userId)) {
-                result.add(task);
-            }
-        }
-        return result;
-    }
-
-    public void deleteById(Long id) {
-        storage.remove(id);
-    }
+    void deleteById(Long id);
 }

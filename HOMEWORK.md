@@ -1,5 +1,4 @@
-# Ev tapşırığı 2
-1. `Category` üçün tam qat dəsti (controller/service/repository/dto/mapper) yaz.
-2. `UpdateUserRequest` DTO və `updateUser(...)` əlavə et.
-3. Bütün servislərdə eyni "findOrThrow" pattern-indən istifadə et.
+# Ev tapşırığı 3
+1. `TaskRepository`-nin ikinci implementasiyasını yaz (məs. `SortedInMemoryTaskRepository`) və Main-də dəyiş.
+2. `NotificationService` interface + no-op impl əlavə et və `TaskService`-ə inject et (OCP nümunəsi).
 

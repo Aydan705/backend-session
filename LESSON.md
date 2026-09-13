@@ -1,9 +1,9 @@
-# Dərs 2 — Layered Architecture & Clean Code
+# Dərs 3 — SOLID & Dependency Injection
 ## Məqsəd
-Məsuliyyətlərin düzgün ayrılmasını (Separation of Concerns) və maintainable kod yazmağı öyrənmək.
+Dəyişikliyə davamlı və loose-coupled dizayn qurmaq.
 ## Mövzular
-- Layered architecture: Controller → Service → Repository.
-- DTO vs domain model; request/response ayrılığı; mapper.
-- Custom exception-lar; aydın paket strukturu.
+- SOLID: SRP, OCP, LSP, ISP, DIP.
+- Interface-based design; tight vs loose coupling.
+- Constructor injection; implementasiyanı dəyişmək (in-memory → JPA) service-ə toxunmadan.
 ## Learning Outcome
-İştirakçı business logic-in infrastructure-dan necə ayrıldığını başa düşür.
+İştirakçı abstraction-a əsaslanan dizaynın niyə vacib olduğunu başa düşür.

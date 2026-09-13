@@ -6,7 +6,7 @@
 
     <groupId>az.training</groupId>
     <artifactId>task-management-api</artifactId>
-    <version>0.2.0</version>
+    <version>0.3.0</version>
     <packaging>jar</packaging>
 
     <name>Task Management API</name>

@@ -2,40 +2,25 @@ package az.training.taskmanagement.repository;
 
 import az.training.taskmanagement.model.User;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.atomic.AtomicLong;
 
-public class UserRepository {
+/**
+ * Repository abstraction.
+ *
+ * Lesson 2: service artıq konkret saxlamadan asılı deyil, yalnız bu
+ * interface-dən asılıdır (Dependency Inversion Principle - SOLID-in "D"-si).
+ * Lesson 5-də bu interface Spring Data JPA ilə əvəz olunacaq.
+ */
+public interface UserRepository {
 
-    private final Map<Long, User> storage = new ConcurrentHashMap<>();
-    private final AtomicLong sequence = new AtomicLong(0);
+    User save(User user);
 
-    public User save(User user) {
-        if (user.getId() == null) {
-            user.setId(sequence.incrementAndGet());
-        }
-        storage.put(user.getId(), user);
-        return user;
-    }
+    Optional<User> findById(Long id);
 
-    public Optional<User> findById(Long id) {
-        return Optional.ofNullable(storage.get(id));
-    }
+    List<User> findAll();
 
-    public List<User> findAll() {
-        return new ArrayList<>(storage.values());
-    }
+    boolean existsByEmail(String email);
 
-    public boolean existsByEmail(String email) {
-        return storage.values().stream()
-                .anyMatch(u -> u.getEmail() != null && u.getEmail().equalsIgnoreCase(email));
-    }
-
-    public void deleteById(Long id) {
-        storage.remove(id);
-    }
+    void deleteById(Long id);
 }
