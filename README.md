@@ -14,8 +14,8 @@
 | `branch_lesson1` | 1 | Java Essentials | Plain Java: in-memory model, repository və service |
 | `branch_lesson2` | 2 | Layered Architecture & Clean Code | Paketlər, DTO, mapper, custom exception (concrete qatlar) |
 | `branch_lesson3` | 3 | SOLID & Dependency Injection | Interface-based design, constructor DI, dəyişdirilə bilən implementasiya |
-| `branch_lesson4` **←** | 4 | HTTP, REST & API Design | OpenAPI kontrakt, Postman, status kodları |
-| `branch_lesson5` | 5 | Spring Boot Fundamentals | Spring Boot, IoC/DI, ilk REST endpoint-lər |
+| `branch_lesson4` | 4 | HTTP, REST & API Design | OpenAPI kontrakt, Postman, status kodları |
+| `branch_lesson5` **←** | 5 | Spring Boot Fundamentals | Spring Boot, IoC/DI, ilk REST endpoint-lər |
 | `branch_lesson6` | 6 | Full REST API with Spring Boot | Bütün endpoint-lər, ResponseEntity (in-memory) |
 | `branch_lesson7` | 7 | Relational Databases & SQL | PostgreSQL, docker-compose, schema, SQL |
 | `branch_lesson8` | 8 | JPA & Hibernate Persistence | Entity, JpaRepository, əlaqələr, transaction |
@@ -31,24 +31,23 @@
 ```bash
 git clone https://github.com/Naghiyev/backend-session.git
 cd backend-session
-git checkout branch_lesson4
+git checkout branch_lesson5
 ```
 
 ---
 
-## 📍 Bu branch: Lesson 4 — HTTP, REST & API Design
+## 📍 Bu branch: Lesson 5 — Spring Boot Fundamentals
 
-Bu dərsdə **kod yox, kontrakt** dizayn olunur. `openapi.yaml`, `docs/API.md`, Postman
-kolleksiyası və `.http` faylı əlavə edildi.
+Layihə **Spring Boot**-a keçdi. Manual wiring Spring DI ilə əvəz olundu. Bu dərsdə əsas
+(fundamental) endpoint-lər qoşulur:
 
-- `openapi.yaml` — OpenAPI 3.0 spesifikasiyası
-- `docs/API.md`, `docs/postman_collection.json`, `docs/requests.http`
+- `POST /users`, `GET /users/{id}`
+- `POST /tasks`, `GET /tasks`, `GET /tasks/{id}`
+
+Qalan endpoint-lər (filter, PATCH, DELETE, user-in taskları) **Lesson 6**-da tamamlanır.
 ### İşə salmaq
 ```bash
-mvn -q compile exec:java
-# və ya
-javac -d out $(find src/main/java -name '*.java')
-java -Dfile.encoding=UTF-8 -cp out az.training.taskmanagement.Main
+mvn spring-boot:run          # http://localhost:8080
 ```
 
 Dərs qeydləri: [`LESSON.md`](LESSON.md) · Ev tapşırığı: [`HOMEWORK.md`](HOMEWORK.md)

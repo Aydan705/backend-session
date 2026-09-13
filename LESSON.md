@@ -1,9 +1,9 @@
-# Dərs 4 — HTTP, REST & API Design
+# Dərs 5 — Spring Boot Fundamentals
 ## Məqsəd
-REST prinsiplərinə uyğun API kontraktını kod yazmadan dizayn etmək.
+Spring Boot ilə real REST server qurmaq və IoC/DI-ni tətbiq etmək.
 ## Mövzular
-- HTTP request/response, method-lar, status kodları, header, JSON.
-- Resource-oriented URI, idempotency, API contract (OpenAPI).
-- Task Management API üçün bütün endpoint-lər.
+- Spring vs Spring Boot; starter-lər; `@SpringBootApplication`.
+- IoC & Dependency Injection; bean & application context.
+- `@RestController`, `@Service`, `@Repository`; `@RequestBody`, `@PathVariable`.
 ## Learning Outcome
-İştirakçı REST prinsiplərinə uyğun API contract hazırlaya bilir.
+İştirakçı Spring Boot ilə işləyən REST endpoint yarada bilir.

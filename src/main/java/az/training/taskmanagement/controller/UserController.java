@@ -1,53 +1,33 @@
 package az.training.taskmanagement.controller;
 
 import az.training.taskmanagement.dto.CreateUserRequest;
-import az.training.taskmanagement.dto.TaskResponse;
 import az.training.taskmanagement.dto.UserResponse;
-import az.training.taskmanagement.service.TaskService;
 import az.training.taskmanagement.service.UserService;
-
-import java.util.List;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 /**
- * Controller = sistemin xarici sərhədi (boundary).
- *
- * Lesson 2-də bu sadə Java class-dır və HTTP haqqında heç nə bilmir -
- * yalnız request-i qəbul edib service-ə ötürür. Lesson 4-də üzərinə
- * @RestController / @PostMapping annotasiyaları əlavə ediləcək və eyni
- * struktur real REST endpoint-lərinə çevriləcək.
+ * Lesson 5 — fundamental endpoints only.
+ * Qalan endpoint-lər (getAll, delete, user-in taskları) Lesson 6-da əlavə olunur.
  */
+@RestController
+@RequestMapping("/users")
 public class UserController {
 
     private final UserService userService;
-    private final TaskService taskService;
 
-    public UserController(UserService userService, TaskService taskService) {
+    public UserController(UserService userService) {
         this.userService = userService;
-        this.taskService = taskService;
     }
 
-    // POST /users
-    public UserResponse create(CreateUserRequest request) {
-        return userService.createUser(request);
+    @PostMapping
+    public ResponseEntity<UserResponse> create(@RequestBody CreateUserRequest request) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(userService.createUser(request));
     }
 
-    // GET /users/{id}
-    public UserResponse getById(Long id) {
+    @GetMapping("/{id}")
+    public UserResponse getById(@PathVariable Long id) {
         return userService.getUserById(id);
-    }
-
-    // GET /users
-    public List<UserResponse> getAll() {
-        return userService.getAllUsers();
-    }
-
-    // GET /users/{id}/tasks
-    public List<TaskResponse> getUserTasks(Long id) {
-        return taskService.getTasksByUser(id);
-    }
-
-    // DELETE /users/{id}
-    public void delete(Long id) {
-        userService.deleteUser(id);
     }
 }

@@ -1,5 +1,5 @@
-# Ev tapşırığı 4
-1. `Category` endpoint-lərini `openapi.yaml`-a əlavə et.
-2. `docs/API.md`-də category üçün nümunə request/response yaz.
-3. Postman kolleksiyasına category request-lərini əlavə et.
+# Ev tapşırığı 5
+1. `GET /users` (bütün user-lər) endpoint-ini əlavə et.
+2. `curl`/Postman ilə mövcud endpoint-ləri test et.
+3. `@RequestParam` ilə sadə axtarış əlavə et.
 

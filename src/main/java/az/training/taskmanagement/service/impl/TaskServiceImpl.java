@@ -7,6 +7,7 @@ import az.training.taskmanagement.exception.ResourceNotFoundException;
 import az.training.taskmanagement.exception.ValidationException;
 import az.training.taskmanagement.mapper.TaskMapper;
 import az.training.taskmanagement.model.Task;
+import az.training.taskmanagement.model.TaskStatus;
 import az.training.taskmanagement.repository.TaskRepository;
 import az.training.taskmanagement.repository.UserRepository;
 import az.training.taskmanagement.service.TaskService;
@@ -14,6 +15,7 @@ import az.training.taskmanagement.service.TaskService;
 import java.time.LocalDateTime;
 import java.util.List;
 
+@org.springframework.stereotype.Service
 public class TaskServiceImpl implements TaskService {
 
     private final TaskRepository taskRepository;
@@ -45,6 +47,14 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public List<TaskResponse> getAllTasks() {
         return taskRepository.findAll().stream()
+                .map(TaskMapper::toResponse)
+                .toList();
+    }
+
+    @Override
+    public List<TaskResponse> getTasks(TaskStatus status) {
+        return taskRepository.findAll().stream()
+                .filter(t -> status == null || t.getStatus() == status)
                 .map(TaskMapper::toResponse)
                 .toList();
     }

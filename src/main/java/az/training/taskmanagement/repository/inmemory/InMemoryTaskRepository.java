@@ -10,6 +10,7 @@ import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 
+@org.springframework.stereotype.Repository
 public class InMemoryTaskRepository implements TaskRepository {
 
     private final Map<Long, Task> storage = new ConcurrentHashMap<>();

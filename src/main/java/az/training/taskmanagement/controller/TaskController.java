@@ -2,11 +2,19 @@ package az.training.taskmanagement.controller;
 
 import az.training.taskmanagement.dto.CreateTaskRequest;
 import az.training.taskmanagement.dto.TaskResponse;
-import az.training.taskmanagement.dto.UpdateTaskRequest;
 import az.training.taskmanagement.service.TaskService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * Lesson 5 — fundamental endpoints only.
+ * Status filter, PATCH və DELETE Lesson 6-da gəlir.
+ */
+@RestController
+@RequestMapping("/tasks")
 public class TaskController {
 
     private final TaskService taskService;
@@ -15,28 +23,18 @@ public class TaskController {
         this.taskService = taskService;
     }
 
-    // POST /tasks
-    public TaskResponse create(CreateTaskRequest request) {
-        return taskService.createTask(request);
+    @PostMapping
+    public ResponseEntity<TaskResponse> create(@RequestBody CreateTaskRequest request) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(taskService.createTask(request));
     }
 
-    // GET /tasks
+    @GetMapping
     public List<TaskResponse> getAll() {
         return taskService.getAllTasks();
     }
 
-    // GET /tasks/{id}
-    public TaskResponse getById(Long id) {
+    @GetMapping("/{id}")
+    public TaskResponse getById(@PathVariable Long id) {
         return taskService.getTaskById(id);
-    }
-
-    // PATCH /tasks/{id}
-    public TaskResponse update(Long id, UpdateTaskRequest request) {
-        return taskService.updateTask(id, request);
-    }
-
-    // DELETE /tasks/{id}
-    public void delete(Long id) {
-        taskService.deleteTask(id);
     }
 }

@@ -1,9 +1,10 @@
 package az.training.taskmanagement.exception;
 
-/**
- * Unikal olması gözlənilən dəyər (məs. email) təkrarlandıqda atılır.
- * Lesson 6-da bu, HTTP 409 (Conflict)-ə map olunacaq.
- */
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
+
+/** Unikal dəyər təkrarlandıqda -> HTTP 409. */
+@ResponseStatus(HttpStatus.CONFLICT)
 public class DuplicateResourceException extends RuntimeException {
     public DuplicateResourceException(String message) {
         super(message);
