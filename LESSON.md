@@ -1,9 +1,9 @@
-# Dərs 6 — Full REST API with Spring Boot
+# Dərs 7 — Relational Databases & SQL
 ## Məqsəd
-API kontraktını tam implementasiya etmək.
+Relational database və SQL əsaslarını öyrənmək (persistence-dən əvvəl).
 ## Mövzular
-- Bütün CRUD endpoint-ləri; status filter (`@RequestParam`).
-- `ResponseEntity` ilə status idarəsi (201 Created, 204 No Content).
-- PATCH ilə qismən yeniləmə.
+- Table, row, column; Primary Key & Foreign Key.
+- Əlaqələr (1–1, 1–M, M–M); constraint, index.
+- SQL: SELECT / INSERT / UPDATE / DELETE, WHERE, JOIN.
 ## Learning Outcome
-İştirakçı tam REST API-ni Spring Boot ilə implementasiya edə bilir.
+İştirakçı relational modeli və əsas SQL sorğularını başa düşür.
