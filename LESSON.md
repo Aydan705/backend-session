@@ -1,9 +1,9 @@
-# Dərs 8 — JPA & Hibernate Persistence
+# Dərs 9 — Validation
 ## Məqsəd
-Persistence layer-i JPA/Hibernate ilə qurmaq.
+Yanlış input-un serverdə düzgün yoxlanmasını təmin etmək.
 ## Mövzular
-- ORM; JPA vs Hibernate; `@Entity`, `@Id`, `@GeneratedValue`, `@Column`.
-- `@ManyToOne` / `@OneToMany`; Spring Data `JpaRepository`; derived queries.
-- Transaction, `@Transactional`.
+- Server-side validation; niyə client-ə etibar etmirik.
+- Bean Validation: `@NotNull`, `@NotBlank`, `@Size`, `@Email`.
+- Controller-də `@Valid`.
 ## Learning Outcome
-İştirakçı database persistence layer yarada və CRUD-u JPA ilə implementasiya edə bilir.
+İştirakçı request DTO-larını validation ilə qoruya bilir.
