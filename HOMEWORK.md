@@ -1,5 +1,5 @@
-# Ev tapşırığı 10
-1. Yeni `TaskLimitExceededException` yarat və `409`-a map et.
-2. `MethodArgumentTypeMismatchException` üçün handler əlavə et.
-3. Servislərə mənalı `log.info`/`log.warn` əlavə et.
+# Ev tapşırığı 11
+1. `UserControllerTest` (`@WebMvcTest`) yaz.
+2. `getTasks(status)` filtri üçün test əlavə et.
+3. Ən azı bir `@ParameterizedTest` yaz.
 

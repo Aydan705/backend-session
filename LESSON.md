@@ -1,9 +1,9 @@
-# Dərs 10 — Exception Handling & Logging
+# Dərs 11 — Backend Testing & Reliability
 ## Məqsəd
-Xətaları vahid formatda idarə etmək və sistemi müşahidə edilə bilən etmək.
+Avtomatlaşdırılmış test strategiyasını qurmaq.
 ## Mövzular
-- Custom exception-lar; `@RestControllerAdvice` + `@ExceptionHandler`.
-- Standart `ApiError` (timestamp, status, message, path, fieldErrors).
-- Logging səviyyələri (INFO/WARN/ERROR/DEBUG).
+- Test pyramid; unit / integration / e2e.
+- JUnit 5, Mockito (`@Mock`, `@InjectMocks`, `when`, `verify`), MockMvc.
+- Reliability: timeout, retry, graceful degradation.
 ## Learning Outcome
-İştirakçı standart error handling və logging tətbiq edə bilir.
+İştirakçı unit və web-layer testləri yaza bilir.

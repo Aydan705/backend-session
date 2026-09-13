@@ -20,8 +20,8 @@
 | `branch_lesson7` | 7 | Relational Databases & SQL | PostgreSQL, docker-compose, schema, SQL |
 | `branch_lesson8` | 8 | JPA & Hibernate Persistence | Entity, JpaRepository, əlaqələr, transaction |
 | `branch_lesson9` | 9 | Validation | Bean Validation, @Valid, server-side yoxlama |
-| `branch_lesson10` **←** | 10 | Exception Handling & Logging | Global handler, standart ApiError, logging |
-| `branch_lesson11` | 11 | Backend Testing & Reliability | JUnit 5, Mockito, MockMvc |
+| `branch_lesson10` | 10 | Exception Handling & Logging | Global handler, standart ApiError, logging |
+| `branch_lesson11` **←** | 11 | Backend Testing & Reliability | JUnit 5, Mockito, MockMvc |
 | `branch_lesson12` | 12 | Production Backend | JWT security, caching, Docker, CI/CD — yekun |
 | `main` | — | Yekun | 12-ci dərsin tam versiyası |
 
@@ -31,19 +31,21 @@
 ```bash
 git clone https://github.com/Naghiyev/backend-session.git
 cd backend-session
-git checkout branch_lesson10
+git checkout branch_lesson11
 ```
 
 ---
 
-## 📍 Bu branch: Lesson 10 — Exception Handling & Logging
+## 📍 Bu branch: Lesson 11 — Backend Testing & Reliability
 
-Xətalar mərkəzləşdirildi: `@RestControllerAdvice` (`GlobalExceptionHandler`) bütün xətaları
-`400/404/409/500`-ə map edir və standart **`ApiError`** body qaytarır. SLF4J logging əlavə olundu.
+Avtomatlaşdırılmış testlər əlavə olundu:
+- `service/*Test` — JUnit 5 + Mockito (positive/negative/exception)
+- `controller/TaskControllerTest` — `@WebMvcTest` + MockMvc
+- Reliability qeydləri: `docs/RELIABILITY.md`
+
 ### İşə salmaq
 ```bash
-docker compose up -d postgres   # verilənlər bazası
-mvn spring-boot:run             # http://localhost:8080
+mvn test
 ```
 
 Dərs qeydləri: [`LESSON.md`](LESSON.md) · Ev tapşırığı: [`HOMEWORK.md`](HOMEWORK.md)

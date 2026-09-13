@@ -13,11 +13,11 @@
 
     <groupId>az.training</groupId>
     <artifactId>task-management-api</artifactId>
-    <version>0.10.0</version>
+    <version>0.11.0</version>
     <packaging>jar</packaging>
 
     <name>Task Management API</name>
-    <description>Lesson 6 - Validation, exception handling and logging</description>
+    <description>Lesson 7 - Backend testing and reliability</description>
 
     <properties>
         <java.version>21</java.version>
