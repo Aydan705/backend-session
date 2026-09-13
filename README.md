@@ -21,8 +21,8 @@
 | `branch_lesson8` | 8 | JPA & Hibernate Persistence | Entity, JpaRepository, əlaqələr, transaction |
 | `branch_lesson9` | 9 | Validation | Bean Validation, @Valid, server-side yoxlama |
 | `branch_lesson10` | 10 | Exception Handling & Logging | Global handler, standart ApiError, logging |
-| `branch_lesson11` **←** | 11 | Backend Testing & Reliability | JUnit 5, Mockito, MockMvc |
-| `branch_lesson12` | 12 | Production Backend | JWT security, caching, Docker, CI/CD — yekun |
+| `branch_lesson11` | 11 | Backend Testing & Reliability | JUnit 5, Mockito, MockMvc |
+| `branch_lesson12` **←** | 12 | Production Backend | JWT security, caching, Docker, CI/CD — yekun |
 | `main` | — | Yekun | 12-ci dərsin tam versiyası |
 
 > Hər branch əvvəlkinin üzərinə qurulur (**cumulative**). Yəni `branch_lesson8`
@@ -31,21 +31,25 @@
 ```bash
 git clone https://github.com/Naghiyev/backend-session.git
 cd backend-session
-git checkout branch_lesson11
+git checkout branch_lesson12
 ```
 
 ---
 
-## 📍 Bu branch: Lesson 11 — Backend Testing & Reliability
+## 📍 Bu branch: Lesson 12 — Production Backend
 
-Avtomatlaşdırılmış testlər əlavə olundu:
-- `service/*Test` — JUnit 5 + Mockito (positive/negative/exception)
-- `controller/TaskControllerTest` — `@WebMvcTest` + MockMvc
-- Reliability qeydləri: `docs/RELIABILITY.md`
+Production konsepsiyaları əlavə olundu:
+- **Security:** JWT (Bearer), role-based (401 vs 403) — introductory (filter əsaslı)
+- **Caching:** `@Cacheable` / `@CacheEvict`
+- **Docker:** çox-mərhələli `Dockerfile` + `docker-compose` (app + PostgreSQL)
+- **CI/CD:** GitHub Actions (build + test)
+- Arxitektura: [`ARCHITECTURE.md`](ARCHITECTURE.md)
 
 ### İşə salmaq
 ```bash
-mvn test
+docker compose up --build     # bütün stack
+# və ya
+docker compose up -d postgres && mvn spring-boot:run
 ```
 
 Dərs qeydləri: [`LESSON.md`](LESSON.md) · Ev tapşırığı: [`HOMEWORK.md`](HOMEWORK.md)

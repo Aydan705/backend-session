@@ -1,5 +1,5 @@
-# Ev tapşırığı 11
-1. `UserControllerTest` (`@WebMvcTest`) yaz.
-2. `getTasks(status)` filtri üçün test əlavə et.
-3. Ən azı bir `@ParameterizedTest` yaz.
+# Ev tapşırığı 12 (Yekun layihə)
+1. `Category` funksionallığını uçtan-uca tamamla (bütün qatlar + test).
+2. İstifadəçiləri database-də saxla, parolu BCrypt ilə hash-lə.
+3. `docker compose up --build` ilə tam stack-i qaldır və README-dəki axını icra et.
 

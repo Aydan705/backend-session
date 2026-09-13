@@ -1,9 +1,9 @@
-# Dərs 11 — Backend Testing & Reliability
+# Dərs 12 — Production Backend
 ## Məqsəd
-Avtomatlaşdırılmış test strategiyasını qurmaq.
+Real production sistemində istifadə olunan əsas anlayışları başa düşmək və layihəni yekunlaşdırmaq.
 ## Mövzular
-- Test pyramid; unit / integration / e2e.
-- JUnit 5, Mockito (`@Mock`, `@InjectMocks`, `when`, `verify`), MockMvc.
-- Reliability: timeout, retry, graceful degradation.
+- Authentication vs Authorization; JWT & Bearer; 401 vs 403.
+- Caching (hit/miss); Docker; CI/CD.
+- Monolith vs microservices (giriş).
 ## Learning Outcome
-İştirakçı unit və web-layer testləri yaza bilir.
+İştirakçı production backend haqqında bütöv mental model əldə edir.

@@ -14,6 +14,8 @@ import az.training.taskmanagement.repository.UserRepository;
 import az.training.taskmanagement.service.TaskService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -47,6 +49,7 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     @Transactional(readOnly = true)
+    @Cacheable(value = "tasks", key = "#id")
     public TaskResponse getTaskById(Long id) {
         return TaskMapper.toResponse(findTaskOrThrow(id));
     }
@@ -80,6 +83,7 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
+    @CacheEvict(value = "tasks", key = "#id")
     public TaskResponse updateTask(Long id, UpdateTaskRequest request) {
         Task task = findTaskOrThrow(id);
         if (request.title() != null) {
@@ -99,6 +103,7 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
+    @CacheEvict(value = "tasks", key = "#id")
     public void deleteTask(Long id) {
         findTaskOrThrow(id);
         taskRepository.deleteById(id);

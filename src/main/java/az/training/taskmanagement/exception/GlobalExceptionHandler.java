@@ -38,6 +38,12 @@ public class GlobalExceptionHandler {
         return build(HttpStatus.CONFLICT, ex.getMessage(), req);
     }
 
+    @ExceptionHandler(AuthenticationException.class)
+    public ResponseEntity<ApiError> handleAuth(AuthenticationException ex, HttpServletRequest req) {
+        log.warn("401 Unauthorized: {}", ex.getMessage());
+        return build(HttpStatus.UNAUTHORIZED, ex.getMessage(), req);
+    }
+
     @ExceptionHandler(ValidationException.class)
     public ResponseEntity<ApiError> handleValidation(ValidationException ex, HttpServletRequest req) {
         log.warn("400 Bad Request: {}", ex.getMessage());
