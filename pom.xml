@@ -6,11 +6,11 @@
 
     <groupId>az.training</groupId>
     <artifactId>task-management-api</artifactId>
-    <version>0.3.0</version>
+    <version>0.4.0</version>
     <packaging>jar</packaging>
 
     <name>Task Management API</name>
-    <description>Lesson 2 - Layered architecture and clean code</description>
+    <description>Lesson 3 - HTTP, REST and API design (contract)</description>
 
     <properties>
         <maven.compiler.release>21</maven.compiler.release>

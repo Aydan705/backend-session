@@ -1,9 +1,9 @@
-# Dərs 3 — SOLID & Dependency Injection
+# Dərs 4 — HTTP, REST & API Design
 ## Məqsəd
-Dəyişikliyə davamlı və loose-coupled dizayn qurmaq.
+REST prinsiplərinə uyğun API kontraktını kod yazmadan dizayn etmək.
 ## Mövzular
-- SOLID: SRP, OCP, LSP, ISP, DIP.
-- Interface-based design; tight vs loose coupling.
-- Constructor injection; implementasiyanı dəyişmək (in-memory → JPA) service-ə toxunmadan.
+- HTTP request/response, method-lar, status kodları, header, JSON.
+- Resource-oriented URI, idempotency, API contract (OpenAPI).
+- Task Management API üçün bütün endpoint-lər.
 ## Learning Outcome
-İştirakçı abstraction-a əsaslanan dizaynın niyə vacib olduğunu başa düşür.
+İştirakçı REST prinsiplərinə uyğun API contract hazırlaya bilir.
