@@ -1,34 +1,46 @@
 package az.training.taskmanagement.model;
 
+import java.util.Objects;
+
 public class Category {
-	private Long id;
-	private String name;
+    private Long id;
+    private String name;
 
-	public Category() {
+    public Category(){
+    }
+    public Category(Long id, String name){
+        this.id= id;
+        this.name= name;
+    }
+    public Long getId() {
+        return id;
+    }
 
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public Category(Long id, String name) {
-		this.id = id;
-		this.name = name;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setId(Long id) {
+    public void setName(String name) {
+        this.name = name;
+    }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Category category)) return false;
+        return Objects.equals(id, category.id);
+    }
 
-		this.id = id;
-	}
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setName(String name) {
-
-		this.name = name;
-	}
-
-	public String getName() {
-		return name;
-	}
-
+    @Override
+    public String toString() {
+        return "Category{id=" + id + ", name='" + name +"'}";
+    }
 }
