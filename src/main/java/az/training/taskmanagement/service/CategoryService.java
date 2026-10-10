@@ -4,13 +4,13 @@ import java.util.List;
 
 import az.training.taskmanagement.exception.CategoryNotFoundException;
 import az.training.taskmanagement.model.Category;
-import az.training.taskmanagement.repository.CategoryRepository;
+import az.training.taskmanagement.repository.inMemory.InMemoryCategoryRepository;
 
 public class CategoryService {
 
-    private final CategoryRepository categoryRepository;
+    private final InMemoryCategoryRepository categoryRepository;
 
-    public CategoryService(CategoryRepository categoryRepository) {
+    public CategoryService(InMemoryCategoryRepository categoryRepository) {
         this.categoryRepository = categoryRepository;
     }
 

@@ -7,9 +7,9 @@ import az.training.taskmanagement.exception.UserNotFoundException;
 import az.training.taskmanagement.model.Priority;
 import az.training.taskmanagement.model.Task;
 import az.training.taskmanagement.model.TaskStatus;
-import az.training.taskmanagement.repository.CategoryRepository;
-import az.training.taskmanagement.repository.TaskRepository;
-import az.training.taskmanagement.repository.UserRepository;
+import az.training.taskmanagement.repository.inMemory.InMemoryCategoryRepository;
+import az.training.taskmanagement.repository.inMemory.InMemoryTaskRepository;
+import az.training.taskmanagement.repository.inMemory.InMemoryUserRepository;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -22,11 +22,11 @@ import java.util.List;
  */
 public class TaskService {
 
-    private final TaskRepository taskRepository;
-    private final UserRepository userRepository;
-    private final CategoryRepository categoryRepository;
+    private final InMemoryTaskRepository taskRepository;
+    private final InMemoryUserRepository userRepository;
+    private final InMemoryCategoryRepository categoryRepository;
 
-    public TaskService(TaskRepository taskRepository,UserRepository userRepository,CategoryRepository categoryRepository) {
+    public TaskService(InMemoryTaskRepository taskRepository, InMemoryUserRepository userRepository, InMemoryCategoryRepository categoryRepository) {
 
         this.taskRepository = taskRepository;
         this.userRepository = userRepository;
@@ -72,20 +72,9 @@ public class TaskService {
         getTaskById(id); // mövcudluğu yoxla
         taskRepository.deleteById(id);
     }
-    
-    
+
     public List<Task> getTasksByStatus(TaskStatus status){
-    	return taskRepository.findByStatus(status);
+    	return taskRepository.getTasksByStatus(status);
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
 }

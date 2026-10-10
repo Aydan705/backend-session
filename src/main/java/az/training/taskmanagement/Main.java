@@ -5,9 +5,9 @@ import az.training.taskmanagement.model.Priority;
 import az.training.taskmanagement.model.Task;
 import az.training.taskmanagement.model.TaskStatus;
 import az.training.taskmanagement.model.User;
-import az.training.taskmanagement.repository.CategoryRepository;
-import az.training.taskmanagement.repository.TaskRepository;
-import az.training.taskmanagement.repository.UserRepository;
+import az.training.taskmanagement.repository.inMemory.InMemoryCategoryRepository;
+import az.training.taskmanagement.repository.inMemory.InMemoryTaskRepository;
+import az.training.taskmanagement.repository.inMemory.InMemoryUserRepository;
 import az.training.taskmanagement.service.CategoryService;
 import az.training.taskmanagement.service.TaskService;
 import az.training.taskmanagement.service.UserService;
@@ -25,9 +25,9 @@ public class Main {
     public static void main(String[] args) {
         // Qatları əl ilə "quraşdırırıq" (manual wiring).
         // Lesson 4-də bunu Spring avtomatik edəcək (Dependency Injection).
-    	CategoryRepository categoryRepository = new CategoryRepository();
-        UserRepository userRepository = new UserRepository();
-        TaskRepository taskRepository = new TaskRepository();
+    	InMemoryCategoryRepository categoryRepository = new InMemoryCategoryRepository();
+        InMemoryUserRepository userRepository = new InMemoryUserRepository();
+        InMemoryTaskRepository taskRepository = new InMemoryTaskRepository();
         CategoryService categoryService = new CategoryService(categoryRepository);
         UserService userService = new UserService(userRepository);
         TaskService taskService = new TaskService(taskRepository, userRepository , categoryRepository);
