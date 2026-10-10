@@ -60,16 +60,6 @@ public class TaskService {
                 .toList();
     }
 
-    public List<TaskResponse> getTasksByCategory(Long categoryId){
-//        if (categoryRepository.findById(categoryId).isEmpty()){
-//            throw ResourceNotFoundException.of("Category" , categoryId);
-//        }
-        findCategoryOrThrow(categoryId);
-        return taskRepository.findByCategoryId(categoryId).stream()
-                .map(TaskMapper :: toResponse).toList();
-    }
-
-
     public TaskResponse updateTask(Long id, UpdateTaskRequest request) {
         Task task = findTaskOrThrow(id);
         if (request.title() != null) {

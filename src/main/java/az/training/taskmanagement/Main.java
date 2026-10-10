@@ -38,7 +38,7 @@ public class Main {
         // 3) Controller qatı (boundary)
         UserController userController = new UserController(userService, taskService);
         TaskController taskController = new TaskController(taskService);
-        CategoryController categoryController = new CategoryController(categoryService, taskService);
+        CategoryController categoryController = new CategoryController(categoryService);
 
         System.out.println("=== Task Management API - Lesson 2 (layered) ===\n");
 

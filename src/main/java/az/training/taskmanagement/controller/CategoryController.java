@@ -2,19 +2,15 @@ package az.training.taskmanagement.controller;
 
 import az.training.taskmanagement.dto.CategoryResponse;
 import az.training.taskmanagement.dto.CreateCategoryRequest;
-import az.training.taskmanagement.dto.TaskResponse;
 import az.training.taskmanagement.service.CategoryService;
-import az.training.taskmanagement.service.TaskService;
 
 import java.util.List;
 
 public class CategoryController {
 
     private final CategoryService categoryService;
-    private final TaskService taskService;
-    public CategoryController(CategoryService categoryService , TaskService taskService) {
+    public CategoryController(CategoryService categoryService) {
         this.categoryService = categoryService;
-        this.taskService = taskService;
     }
 
 //    post /categories
@@ -28,10 +24,6 @@ public class CategoryController {
 //    Get/categories
     public List<CategoryResponse> getAll(){
         return  categoryService.getAllCategories();
-    }
-//    Get/categories/{id}/tasks
-    public List<TaskResponse> getCategoryTasks(Long id){
-        return taskService.getTasksByCategory(id);
     }
 //    Delete/categories/{id}
     public void delete(Long id){

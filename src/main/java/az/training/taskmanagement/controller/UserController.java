@@ -52,7 +52,7 @@ public class UserController {
         userService.deleteUser(id);
     }
 
-//    Put/users/{id}
+//    PATCH/users/{id}
     public UserResponse updateUser(Long id , UpdateUserRequest request) { return userService.updateUser(id,request); }
 
 }

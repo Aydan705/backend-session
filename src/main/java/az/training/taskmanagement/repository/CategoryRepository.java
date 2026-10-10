@@ -13,6 +13,12 @@ public class CategoryRepository {
     private final Map<Long , Category> storage = new ConcurrentHashMap<>();
     private final AtomicLong sequence = new AtomicLong(0);
 
+    public boolean existsByName(String name) {
+        return storage.values().stream()
+                .anyMatch(category ->
+                        category.getName() != null
+                                && category.getName().equalsIgnoreCase(name));
+    }
     public Category save(Category category){
         if (category.getId() ==null){
             category.setId(sequence.incrementAndGet());
@@ -23,8 +29,6 @@ public class CategoryRepository {
     public Optional<Category> findById(Long id){return Optional.ofNullable(storage.get(id));}
 
     public List<Category> findAll(){return new ArrayList<>(storage.values());}
-
-//    public List<Category>
 
     public void deleteById(Long id){storage.remove(id);}
 
