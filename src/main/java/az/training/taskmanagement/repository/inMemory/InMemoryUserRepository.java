@@ -15,7 +15,7 @@ import java.util.concurrent.atomic.AtomicLong;
  *
  * Lesson 1: verilənlər hələ database-də deyil, yaddaşda (Map) saxlanılır.
  * id generasiyası AtomicLong ilə edilir.
- *
+
  * Sonrakı dərslərdə bu sinif əvvəlcə interface-ə çevriləcək (Lesson 2),
  * daha sonra Spring Data JPA repository ilə əvəz olunacaq (Lesson 5).
  */
