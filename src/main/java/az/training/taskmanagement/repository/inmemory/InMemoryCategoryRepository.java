@@ -26,6 +26,13 @@ public class InMemoryCategoryRepository implements CategoryRepository {
     public Optional<Category> findById(Long id){return Optional.ofNullable(storage.get(id));}
     @Override
     public List<Category> findAll(){return new ArrayList<>(storage.values());}
+    @Override
+    public boolean existsByName(String name) {
+        return storage.values().stream()
+                .anyMatch(category ->
+                        category.getName() != null
+                                && category.getName().equalsIgnoreCase(name));
+    }
 
     @Override
     public void deleteById(Long id){storage.remove(id);}
