@@ -21,23 +21,25 @@ public class CategoryController {
 
     //    post /categories
     @PostMapping
-    public CategoryResponse create(@RequestBody CreateCategoryRequest request){
+    public ResponseEntity<CategoryResponse> create(@RequestBody CreateCategoryRequest request){
         return ResponseEntity.status(HttpStatus.CREATED).body(categoryService.createCategory(request)) ;
     }
     //    Get/categories{id}
 
-    @GetMapping{"/{id}"}
+    @GetMapping("/{id}")
     public CategoryResponse getById(@PathVariable Long id){
         return categoryService.getCategoryById(id);
     }
     //    Get/categories
-    public List<CategoryResponse> getAll(){
-        return  categoryService.getAllCategories();
+    @GetMapping
+    public List<CategoryResponse> getAllOrByName(@RequestParam(required = false) String name){
+        return  categoryService.getAllOrByName(name);
     }
     //    Delete/categories/{id}
     public void delete(Long id){
         categoryService.deleteCategory(id);
     }
+
 
 
 }

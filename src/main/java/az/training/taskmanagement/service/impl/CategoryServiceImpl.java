@@ -27,13 +27,16 @@ public class CategoryServiceImpl implements CategoryService {
         Category saved = categoryRepository.save(CategoryMapper.toEntity(request));
         return CategoryMapper.toResponse(saved);
     }
+
     public CategoryResponse getCategoryById(Long id) {
 
         return CategoryMapper.toResponse(findCategoryOrThrow(id));
     }
 
-    public List<CategoryResponse> getAllCategories() {
+    public List<CategoryResponse> getAllOrByName(String name) {
         return categoryRepository.findAll().stream()
+                .filter(c -> name == null || name.isBlank() || c.getName().toLowerCase()
+                        .contains(name.toLowerCase()))
                 .map(CategoryMapper::toResponse).toList();
     }
 
