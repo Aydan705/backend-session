@@ -1,8 +1,7 @@
 package az.training.taskmanagement.controller;
 
-import az.training.taskmanagement.dto.CreateTaskRequest;
-import az.training.taskmanagement.dto.TaskResponse;
-import az.training.taskmanagement.dto.UpdateTaskRequest;
+import az.training.taskmanagement.dto.*;
+import az.training.taskmanagement.model.Priority;
 import az.training.taskmanagement.model.TaskStatus;
 import az.training.taskmanagement.service.TaskService;
 import org.springframework.http.HttpStatus;
@@ -29,8 +28,8 @@ public class TaskController {
 
     // GET /tasks  və  GET /tasks?status=TODO
     @GetMapping
-    public List<TaskResponse> getAll(@RequestParam(required = false) TaskStatus status) {
-        return taskService.getTasks(status);
+    public List<TaskResponse> getAll(@RequestParam(required = false) TaskStatus status, @RequestParam(required = false) Priority priority) {
+        return taskService.getTasks(status,priority);
     }
 
     @GetMapping("/{id}")
@@ -42,6 +41,12 @@ public class TaskController {
     public TaskResponse update(@PathVariable Long id, @RequestBody UpdateTaskRequest request) {
         return taskService.updateTask(id, request);
     }
+//
+//    @PutMapping("/{id}")
+//    public TaskResponse change(@PathVariable Long id, @RequestParam ChangeTaskRequest request){
+//        return null;
+//    }
+
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {

@@ -6,6 +6,7 @@ import az.training.taskmanagement.dto.UpdateTaskRequest;
 import az.training.taskmanagement.exception.ResourceNotFoundException;
 import az.training.taskmanagement.exception.ValidationException;
 import az.training.taskmanagement.mapper.TaskMapper;
+import az.training.taskmanagement.model.Priority;
 import az.training.taskmanagement.model.Task;
 import az.training.taskmanagement.model.TaskStatus;
 import az.training.taskmanagement.repository.TaskRepository;
@@ -52,9 +53,10 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public List<TaskResponse> getTasks(TaskStatus status) {
+    public List<TaskResponse> getTasks(TaskStatus status, Priority priority) {
         return taskRepository.findAll().stream()
                 .filter(t -> status == null || t.getStatus() == status)
+                .filter(t-> priority == null || t.getPriority()==priority)
                 .map(TaskMapper::toResponse)
                 .toList();
     }
@@ -87,6 +89,32 @@ public class TaskServiceImpl implements TaskService {
         task.setUpdatedAt(LocalDateTime.now());
         return TaskMapper.toResponse(taskRepository.save(task));
     }
+//
+//    @Override
+//    public TaskResponse changeTask(Long id, ChangeTaskRequest request) {
+//        Task task = findTaskOrThrow(id);
+////        String title, String description, Priority priority, Long userId, Long categoryId
+//        if (request.title() != null) {
+//            task.setTitle(request.title());
+//        }
+//        if (request.description() != null) {
+//            task.setDescription(request.description());
+//        }
+//        if (request.status() != null) {
+//            task.setStatus(request.status());
+//        }
+//        if (request.priority() != null) {
+//            task.setPriority(request.priority());
+//        }
+//        if (request.userId() != null) {
+//            task.setUserId(request.userId());
+//        }
+//        if (request.categoryId() != null) {
+//            task.setCategoryId(request.categoryId());
+//        }
+//
+//        return null;
+//    }
 
     @Override
     public void deleteTask(Long id) {
