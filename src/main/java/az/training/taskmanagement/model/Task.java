@@ -9,6 +9,10 @@ import java.util.Objects;
  * Task bir User-ə aiddir (userId vasitəsilə).
  * createdAt / updatedAt audit sahələridir.
  */
+@Entity
+@Data
+@Table(name = "Task", schema = "task")
+
 public class Task {
 
     private Long id;
