@@ -4,6 +4,9 @@ import az.training.taskmanagement.dto.*;
 import az.training.taskmanagement.model.Priority;
 import az.training.taskmanagement.model.TaskStatus;
 import az.training.taskmanagement.service.TaskService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -27,10 +30,24 @@ public class TaskController {
     }
 
     // GET /tasks  və  GET /tasks?status=TODO
+//    @GetMapping
+//    public List<TaskResponse> getAllOrStatusOrPriority(@RequestParam(required = false) TaskStatus status, @RequestParam(required = false) Priority priority) {
+//        return taskService.getTasks(status,priority);
+//    }
+//    @GetMapping
+//    public Page<TaskResponse> getAll(@PageableDefault(size = 10, sort = "id") Pageable pageable){
+//        return taskService.getAllTasks(pageable);
+//    }
+
     @GetMapping
-    public List<TaskResponse> getAll(@RequestParam(required = false) TaskStatus status, @RequestParam(required = false) Priority priority) {
-        return taskService.getTasks(status,priority);
+    public Page<TaskResponse> getTasks(
+            @RequestParam(required = false) TaskStatus status,
+            @RequestParam(required = false) Priority priority,
+            @PageableDefault(size = 10, sort = "id") Pageable pageable) {
+
+        return taskService.getTasks(status, priority, pageable);
     }
+
 
     @GetMapping("/{id}")
     public TaskResponse getById(@PathVariable Long id) {
@@ -41,11 +58,11 @@ public class TaskController {
     public TaskResponse update(@PathVariable Long id, @RequestBody UpdateTaskRequest request) {
         return taskService.updateTask(id, request);
     }
-//
-//    @PutMapping("/{id}")
-//    public TaskResponse change(@PathVariable Long id, @RequestParam ChangeTaskRequest request){
-//        return null;
-//    }
+
+    @PutMapping("/{id}")
+    public TaskResponse replaceTask(Long id, UpdateTaskRequest request){
+        return taskService.replaceTask(id,request);
+    }
 
 
     @DeleteMapping("/{id}")
